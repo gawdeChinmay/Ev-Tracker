@@ -41,6 +41,9 @@ dependencies:
   simple_animations: ^5.1.0
   page_transition: ^2.2.1
   sa4_migration_kit: ^1.0.0
+  curved_nav_bar: ^0.0.2
+  curved_navigation_bar: ^1.0.6
+  fl_chart: ^0.70.1
 
 dev_dependencies:
   flutter_test:
