@@ -1,3 +1,4 @@
+import 'package:ev_tracker/pages/custom_slider.dart';
 import 'package:flutter/material.dart';
 
 class SubsidyEv extends StatelessWidget {
@@ -5,10 +6,9 @@ class SubsidyEv extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Subsidy',
-        style: TextStyle(color: Colors.white, fontSize: 24),
+    return Scaffold(
+      body: Center(
+        child: CustomSlider(),
       ),
     );
   }

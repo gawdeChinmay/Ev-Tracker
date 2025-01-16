@@ -20,7 +20,6 @@ class _HomepageState extends State<Homepage> {
     const Evdashboard(),
     const StateswiseEv(),
     const SubsidyEv(),
-    const CalculateEvCost(),
   ];
 
   @override
@@ -43,15 +42,11 @@ class _HomepageState extends State<Homepage> {
               color: Color.fromARGB(255, 204, 255, 0),
             ),
             Icon(
-              Icons.settings,
+              Icons.map_outlined,
               color: Color.fromARGB(255, 204, 255, 0),
             ),
             Icon(
-              Icons.map,
-              color: Color.fromARGB(255, 204, 255, 0),
-            ),
-            Icon(
-              Icons.calculate,
+              Icons.electric_bolt,
               color: Color.fromARGB(255, 204, 255, 0),
             ),
           ]),
