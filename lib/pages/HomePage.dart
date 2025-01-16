@@ -30,18 +30,30 @@ class _HomepageState extends State<Homepage> {
       body: pages[currentIndex],
       bottomNavigationBar: CurvedNavigationBar(
           backgroundColor: Colors.white,
-          color: Color.fromARGB(255, 204, 255, 0),
+          color: Colors.black,
           animationDuration: Duration(milliseconds: 300),
           onTap: (index) {
             setState(() {
               currentIndex = index;
             });
           },
-          items: [
-            Icon(Icons.home),
-            Icon(Icons.settings),
-            Icon(Icons.map),
-            Icon(Icons.calculate),
+          items: const [
+            Icon(
+              Icons.home,
+              color: Color.fromARGB(255, 204, 255, 0),
+            ),
+            Icon(
+              Icons.settings,
+              color: Color.fromARGB(255, 204, 255, 0),
+            ),
+            Icon(
+              Icons.map,
+              color: Color.fromARGB(255, 204, 255, 0),
+            ),
+            Icon(
+              Icons.calculate,
+              color: Color.fromARGB(255, 204, 255, 0),
+            ),
           ]),
     );
   }

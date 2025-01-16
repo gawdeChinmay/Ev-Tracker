@@ -54,7 +54,7 @@ class Evdashboard extends StatelessWidget {
             ),
             Center(
               child: Text(
-                '12839499',
+                '1681127',
                 style: GoogleFonts.roboto(
                   color: Colors.white,
                   fontSize: 50.0,
@@ -63,19 +63,16 @@ class Evdashboard extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            const SizedBox(
-              height: 50,
-            ),
             SizedBox(
               height: 200, // Set the height of the chart
               child: LineChart(
                 LineChartData(
                   gridData: FlGridData(show: false), // Show grid lines
                   titlesData: FlTitlesData(
-                    show: false,
+                    show: true,
                     leftTitles: AxisTitles(
                       sideTitles: SideTitles(
-                        showTitles: false,
+                        showTitles: true,
                         getTitlesWidget: (value, meta) {
                           return Text(
                             value.toInt().toString(),
@@ -90,7 +87,7 @@ class Evdashboard extends StatelessWidget {
                         showTitles: true,
                         getTitlesWidget: (value, meta) {
                           return Text(
-                            '202${value.toInt() + 1}',
+                            '202${value.toInt()}',
                             style: TextStyle(color: Colors.white, fontSize: 10),
                           );
                         },
@@ -100,23 +97,18 @@ class Evdashboard extends StatelessWidget {
                   ),
                   borderData: FlBorderData(show: false),
                   minX: 0,
-                  maxX: 11, // 12 months (0-11)
+                  maxX: 6, // 12 months (0-11)
                   minY: 0,
-                  maxY: 70000, // Maximum value for Y-axis
+                  maxY: 2081127, // Maximum value for Y-axis
                   lineBarsData: [
                     LineChartBarData(
                       spots: [
-                        FlSpot(0, 5000),
-                        FlSpot(1, 15000),
-                        FlSpot(2, 10000),
-                        FlSpot(3, 20000),
-                        FlSpot(4, 25000),
-                        FlSpot(5, 30000),
-                        FlSpot(6, 40000),
-                        FlSpot(7, 50000),
-                        FlSpot(8, 45000),
-                        FlSpot(9, 60000),
-                        FlSpot(10, 70000),
+                        FlSpot(-1, 103604),
+                        FlSpot(0, 173604),
+                        FlSpot(1, 142383),
+                        FlSpot(2, 459058),
+                        FlSpot(3, 1183341),
+                        FlSpot(4, 1681127),
                       ],
                       isCurved: true,
                       color: Color.fromARGB(255, 204, 255, 0),
