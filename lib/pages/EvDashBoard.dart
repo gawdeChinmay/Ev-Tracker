@@ -1,9 +1,35 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-class Evdashboard extends StatelessWidget {
+class Evdashboard extends StatefulWidget {
   const Evdashboard({super.key});
+
+  @override
+  State<Evdashboard> createState() => _EvdashboardState();
+}
+
+class _EvdashboardState extends State<Evdashboard>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize the animation controller
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2), // Duration of the animation
+    )..repeat(reverse: false); // Continuously loop the animation
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,47 +51,235 @@ class Evdashboard extends StatelessWidget {
               sliver: SliverList(
                   delegate: SliverChildListDelegate([
                 _buildCard(
-                  title: "Card 1 Title",
-                  description: "Description for Card 1",
-                  icon: Icons.electric_bike,
-                  color: Colors.amber,
-                  gradientColors: [
-                    const Color.fromARGB(255, 255, 255, 255),
-                    const Color.fromARGB(255, 255, 255, 255)
-                  ], // Example icon
-                ),
+                    title: "Card 1 Title",
+                    description: "Description for Card 1",
+                    icon: Icons.electric_bike,
+                    color: Colors.amber,
+                    gradientColors: [
+                      const Color.fromARGB(255, 255, 255, 255),
+                      const Color.fromARGB(255, 255, 255, 255)
+                    ],
+                    controller: _controller // Example icon
+                    ),
                 const SizedBox(height: 16),
                 _buildCard(
-                  title: "Card 2 Title",
-                  description: "Description for Card 2",
-                  icon: Icons.electric_car_outlined,
-                  color: const Color.fromARGB(255, 0, 174, 255),
-                  gradientColors: [
-                    Colors.black,
-                    const Color.fromARGB(255, 0, 208, 255)
-                  ], // Example icon
-                ),
+                    title: "Card 2 Title",
+                    description: "Description for Card 2",
+                    icon: Icons.electric_car_outlined,
+                    color: const Color.fromARGB(255, 0, 174, 255),
+                    gradientColors: [
+                      Colors.black,
+                      const Color.fromARGB(255, 0, 208, 255)
+                    ],
+                    controller: _controller // Example icon
+                    ),
                 const SizedBox(height: 16),
                 _buildCard(
-                  title: "Card 3 Title",
-                  description: "Description for Card 3",
-                  icon: Icons.directions_bus_sharp,
-                  color: const Color.fromARGB(255, 222, 31, 31),
-                  gradientColors: [
-                    Colors.black,
-                    const Color.fromARGB(255, 220, 19, 19)
-                  ], // Example icon
-                ),
+                    title: "Card 3 Title",
+                    description: "Description for Card 3",
+                    icon: Icons.directions_bus_sharp,
+                    color: const Color.fromARGB(255, 222, 31, 31),
+                    gradientColors: [
+                      Colors.black,
+                      const Color.fromARGB(255, 220, 19, 19)
+                    ],
+                    controller: _controller // Example icon
+                    ),
                 _buildCard(
-                  title: "Card 4 Title",
-                  description: "Description for Card 4",
-                  icon: Icons.electric_rickshaw,
-                  color: const Color.fromARGB(255, 12, 229, 59),
-                  gradientColors: [
-                    const Color.fromARGB(255, 0, 0, 0),
-                    const Color.fromARGB(255, 30, 197, 14)
-                  ], // Example icon
+                    title: "Card 4 Title",
+                    description: "Description for Card 4",
+                    icon: Icons.electric_rickshaw,
+                    color: const Color.fromARGB(255, 12, 229, 59),
+                    gradientColors: [
+                      const Color.fromARGB(255, 0, 0, 0),
+                      const Color.fromARGB(255, 30, 197, 14)
+                    ],
+                    controller: _controller // Example icon
+                    ),
+                const SizedBox(
+                  height: 20,
                 ),
+                const Text(
+                  'Most used Ev:',
+                  style: TextStyle(
+                    color: Colors.black, // Base text color
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Container(
+                      width: 27,
+                      height: 13,
+                      decoration: BoxDecoration(
+                          color: Colors.amber,
+                          borderRadius: BorderRadius.circular(20)),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    const Text(
+                      "2ev",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      width: 27,
+                      height: 13,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 33, 182, 245),
+                          borderRadius: BorderRadius.circular(20)),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    const Text(
+                      "4ev",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      width: 27,
+                      height: 13,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 42, 236, 52),
+                          borderRadius: BorderRadius.circular(20)),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    const Text(
+                      "3ev",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      width: 27,
+                      height: 13,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 231, 28, 28),
+                          borderRadius: BorderRadius.circular(20)),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    const Text(
+                      "busev",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                  ],
+                ),
+                SfRadialGauge(
+                  axes: [
+                    RadialAxis(
+                      radiusFactor: 0.65,
+                      axisLineStyle: AxisLineStyle(
+                          thickness: 25, color: Colors.grey.shade200),
+                      startAngle: 270,
+                      endAngle: 270,
+                      showLabels: false,
+                      showTicks: false,
+                      annotations: const [
+                        GaugeAnnotation(
+                          widget: Text(
+                            "73%",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 26,
+                                color: Colors.black),
+                          ),
+                          angle: 270,
+                          positionFactor: 0.1,
+                        )
+                      ],
+                    ),
+                    RadialAxis(
+                      radiusFactor: 0.8,
+                      pointers: const [
+                        RangePointer(
+                          value: 50,
+                          color: Colors.amber,
+                          width: 50,
+                        )
+                      ],
+                      startAngle: 270,
+                      endAngle: 270,
+                      showLabels: false,
+                      showTicks: false,
+                      showAxisLine: false,
+                    ),
+                    RadialAxis(
+                      radiusFactor: 0.68,
+                      pointers: const [
+                        RangePointer(
+                          value: 20,
+                          color: Color.fromARGB(255, 219, 19, 19),
+                          width: 50,
+                        )
+                      ],
+                      startAngle: 120,
+                      endAngle: 120,
+                      showLabels: false,
+                      showTicks: false,
+                      showAxisLine: false,
+                    ),
+                    RadialAxis(
+                      radiusFactor: 0.74,
+                      pointers: const [
+                        RangePointer(
+                          value: 15,
+                          color: Color.fromARGB(255, 32, 219, 19),
+                          width: 40,
+                        )
+                      ],
+                      startAngle: 90,
+                      endAngle: 90,
+                      showLabels: false,
+                      showTicks: false,
+                      showAxisLine: false,
+                    ),
+                    RadialAxis(
+                      radiusFactor: 0.65,
+                      pointers: const [
+                        RangePointer(
+                          value: 10,
+                          color: Color.fromARGB(255, 20, 211, 232),
+                          width: 35,
+                        )
+                      ],
+                      startAngle: 192,
+                      endAngle: 192,
+                      showLabels: false,
+                      showTicks: false,
+                      showAxisLine: false,
+                    )
+                  ],
+                )
               ])))
         ],
       ),
@@ -276,6 +490,7 @@ Widget _buildCard({
   required IconData icon,
   required Color color,
   required List<Color> gradientColors,
+  required AnimationController controller,
 }) {
   return Container(
       decoration: BoxDecoration(
@@ -317,18 +532,49 @@ Widget _buildCard({
                   ],
                 ),
               ),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      elevation: 5.0,
+              AnimatedBuilder(
+                animation: controller,
+                builder: (context, child) {
+                  // Calculate the shimmer position
+                  final gradientPosition = controller.value;
+
+                  return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 6.0,
                       backgroundColor: Colors.black,
-                      textStyle: const TextStyle(
-                          fontSize: 15,
-                          color: Color.fromARGB(255, 255, 255, 255))),
-                  onPressed: () {},
-                  child: const Text(
-                    'Apply',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ))
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: ShaderMask(
+                      blendMode: BlendMode.srcATop,
+                      shaderCallback: (bounds) {
+                        return LinearGradient(
+                          colors: [
+                            Colors.white.withOpacity(0.2),
+                            Colors.white,
+                            Colors.white.withOpacity(0.2),
+                          ],
+                          stops: const [0.0, 0.5, 1.0],
+                          begin: Alignment.centerRight,
+                          end: Alignment.centerLeft,
+                          transform:
+                              GradientRotation(gradientPosition * 2 * 3.14),
+                        ).createShader(bounds);
+                      },
+                      child: const Text(
+                        'Apply',
+                        style: TextStyle(
+                          color: Colors.white, // Base text color
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),

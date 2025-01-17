@@ -45,6 +45,10 @@ dependencies:
   curved_navigation_bar: ^1.0.6
   fl_chart: ^0.70.1
   flutter_svg: ^2.0.17
+  gauges: ^1.0.0
+  gauge_chart: ^1.0.4
+  gauge_indicator: ^0.4.3
+  syncfusion_flutter_gauges: ^28.1.39
 
 dev_dependencies:
   flutter_test:
