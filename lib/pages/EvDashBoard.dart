@@ -19,6 +19,54 @@ class Evdashboard extends StatelessWidget {
         physics: ClampingScrollPhysics(),
         slivers: <Widget>[
           _buildHeader(screenHeight),
+          SliverPadding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              sliver: SliverList(
+                  delegate: SliverChildListDelegate([
+                _buildCard(
+                  title: "Card 1 Title",
+                  description: "Description for Card 1",
+                  icon: Icons.electric_bike,
+                  color: Colors.amber,
+                  gradientColors: [
+                    const Color.fromARGB(255, 255, 255, 255),
+                    const Color.fromARGB(255, 255, 255, 255)
+                  ], // Example icon
+                ),
+                const SizedBox(height: 16),
+                _buildCard(
+                  title: "Card 2 Title",
+                  description: "Description for Card 2",
+                  icon: Icons.electric_car_outlined,
+                  color: const Color.fromARGB(255, 0, 174, 255),
+                  gradientColors: [
+                    Colors.black,
+                    const Color.fromARGB(255, 0, 208, 255)
+                  ], // Example icon
+                ),
+                const SizedBox(height: 16),
+                _buildCard(
+                  title: "Card 3 Title",
+                  description: "Description for Card 3",
+                  icon: Icons.directions_bus_sharp,
+                  color: const Color.fromARGB(255, 222, 31, 31),
+                  gradientColors: [
+                    Colors.black,
+                    const Color.fromARGB(255, 220, 19, 19)
+                  ], // Example icon
+                ),
+                _buildCard(
+                  title: "Card 4 Title",
+                  description: "Description for Card 4",
+                  icon: Icons.electric_rickshaw,
+                  color: const Color.fromARGB(255, 12, 229, 59),
+                  gradientColors: [
+                    const Color.fromARGB(255, 0, 0, 0),
+                    const Color.fromARGB(255, 30, 197, 14)
+                  ], // Example icon
+                ),
+              ])))
         ],
       ),
     );
@@ -163,4 +211,126 @@ class Evdashboard extends StatelessWidget {
       ),
     );
   }
+}
+
+// Widget _buildCard({
+//   required String title,
+//   required String description,
+//   required IconData icon,
+//   required Color color,
+//   required List<Color> gradientColors,
+// }) {
+//   return Container(
+//     decoration: BoxDecoration(
+//       gradient: LinearGradient(
+//         colors: gradientColors,
+//         begin: Alignment.topLeft,
+//         end: Alignment.bottomRight,
+//       ),
+//       borderRadius: BorderRadius.circular(12), // Match the card shape
+//     ),
+//     margin: const EdgeInsets.symmetric(vertical: 8.0),
+//     child: Card(
+//       color: Colors.transparent, // Set card color to transparent
+//       elevation: 4.0,
+//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+//       child: Padding(
+//         padding: const EdgeInsets.all(16.0),
+//         child: Row(
+//           children: [
+//             Icon(icon, size: 40, color: color), // Adjust icon color
+//             const SizedBox(width: 16),
+//             Expanded(
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(
+//                     title,
+//                     style: const TextStyle(
+//                       fontSize: 18,
+//                       fontWeight: FontWeight.bold,
+//                       color: Colors.white, // Match text color to gradient
+//                     ),
+//                   ),
+//                   const SizedBox(height: 8),
+//                   Text(
+//                     description,
+//                     style: const TextStyle(
+//                       fontSize: 14,
+//                       color: Colors.white70, // Slightly lighter text color
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     ),
+//   );
+// }
+
+Widget _buildCard({
+  required String title,
+  required String description,
+  required IconData icon,
+  required Color color,
+  required List<Color> gradientColors,
+}) {
+  return Container(
+      decoration: BoxDecoration(
+        // gradient: LinearGradient(
+        //   colors: gradientColors,
+        //   begin: Alignment.topLeft,
+        //   end: Alignment.bottomRight,
+        // ),
+        borderRadius: BorderRadius.circular(12), // Match the card shape
+      ),
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Card(
+        color: const Color.fromARGB(255, 243, 241, 241),
+        elevation: 4.0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            children: [
+              Icon(icon, size: 40, color: color),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      description,
+                      style:
+                          const TextStyle(fontSize: 14, color: Colors.black54),
+                    ),
+                  ],
+                ),
+              ),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      elevation: 5.0,
+                      backgroundColor: Colors.black,
+                      textStyle: const TextStyle(
+                          fontSize: 15,
+                          color: Color.fromARGB(255, 255, 255, 255))),
+                  onPressed: () {},
+                  child: const Text(
+                    'Apply',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ))
+            ],
+          ),
+        ),
+      ));
 }
