@@ -1,5 +1,9 @@
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+import 'package:ev_tracker/pages/ApplyForSubsidy.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
@@ -13,6 +17,12 @@ class Evdashboard extends StatefulWidget {
 class _EvdashboardState extends State<Evdashboard>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+
+  String annotationText = "73%"; // Initial annotation text
+  double pointerValue = 50; // Initial pointer value
+  String clickedAxis = "";
+  final GlobalKey _gaugeKey = GlobalKey();
+  String tappedColor = "";
 
   @override
   void initState() {
@@ -29,6 +39,89 @@ class _EvdashboardState extends State<Evdashboard>
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void _detectAxisTap(Offset localPosition, Size size) {
+    print(" local clicked = $localPosition $size");
+
+    // Calculate tap position relative to the center of the gauge
+    final double centerX = size.width / 2;
+    final double centerY = size.height / 2;
+
+    final double dx = localPosition.dx - centerX;
+    final double dy = localPosition.dy - centerY;
+
+    // Calculate distance from the center
+    final double distance = (dx * dx + dy * dy);
+
+    // Check for specific radius ranges to determine the axis clicked
+    if (localPosition.dx >= 252 && localPosition.dy < 722) {
+      setState(() {
+        clickedAxis = "Axis 1 (Amber)";
+      });
+    } else if (distance >= 130 && distance < 180) {
+      setState(() {
+        clickedAxis = "Axis 2 (Red)";
+      });
+    } else if (distance >= 180 && distance < 230) {
+      setState(() {
+        clickedAxis = "Axis 3 (Green)";
+      });
+    } else if (distance >= 230 && distance < 280) {
+      setState(() {
+        clickedAxis = "Axis 4 (Blue)";
+      });
+    } else {
+      setState(() {
+        clickedAxis = "Outside Axes";
+      });
+    }
+  }
+
+  Future<void> _getColorAtTap(Offset localPosition) async {
+    try {
+      print("in color");
+
+      final renderObject =
+          _gaugeKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
+
+      // Capture the widget as an image
+      final ui.Image image = await renderObject.toImage();
+      final ByteData? byteData =
+          await image.toByteData(format: ui.ImageByteFormat.rawRgba);
+
+      if (byteData != null) {
+        final int pixelOffset = (localPosition.dy.toInt() * image.width +
+                localPosition.dx.toInt()) *
+            4;
+
+        // Extract RGBA values
+        final int red = byteData.getUint8(pixelOffset);
+        final int green = byteData.getUint8(pixelOffset + 1);
+        final int blue = byteData.getUint8(pixelOffset + 2);
+
+        print("in color green $green ");
+        print("in color red $red ");
+        print("in color blue $blue  ");
+
+        setState(() {
+          // tappedColor = "R: $red, G: $green, B: $blue";
+          if (red == 255 && blue == 7) {
+            tappedColor = "Amber";
+          } else if (green == 219) {
+            tappedColor = "Green";
+          } else if (red == 219) {
+            tappedColor = "Red";
+          } else if (blue == 243) {
+            tappedColor = "blue";
+          }
+        });
+      }
+    } catch (e) {
+      setState(() {
+        tappedColor = "Error detecting color: $e";
+      });
+    }
   }
 
   @override
@@ -50,9 +143,23 @@ class _EvdashboardState extends State<Evdashboard>
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
               sliver: SliverList(
                   delegate: SliverChildListDelegate([
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  'Apply for Subsidy',
+                  style: TextStyle(
+                    color: Colors.black, // Base text color
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 _buildCard(
-                    title: "Card 1 Title",
-                    description: "Description for Card 1",
+                    title: "Two Wheelers 2kWh",
+                    description: "Incentive amt paid 15000/- per kWh",
                     icon: Icons.electric_bike,
                     color: Colors.amber,
                     gradientColors: [
@@ -63,8 +170,8 @@ class _EvdashboardState extends State<Evdashboard>
                     ),
                 const SizedBox(height: 16),
                 _buildCard(
-                    title: "Card 2 Title",
-                    description: "Description for Card 2",
+                    title: "Four Wheelers 15kWh",
+                    description: "Incentive amt paid 10000/- per kWh",
                     icon: Icons.electric_car_outlined,
                     color: const Color.fromARGB(255, 0, 174, 255),
                     gradientColors: [
@@ -75,8 +182,8 @@ class _EvdashboardState extends State<Evdashboard>
                     ),
                 const SizedBox(height: 16),
                 _buildCard(
-                    title: "Card 3 Title",
-                    description: "Description for Card 3",
+                    title: "EV - Buses 250kWh",
+                    description: "Incentive amt paid 20000/- per kWh",
                     icon: Icons.directions_bus_sharp,
                     color: const Color.fromARGB(255, 222, 31, 31),
                     gradientColors: [
@@ -86,8 +193,8 @@ class _EvdashboardState extends State<Evdashboard>
                     controller: _controller // Example icon
                     ),
                 _buildCard(
-                    title: "Card 4 Title",
-                    description: "Description for Card 4",
+                    title: "3 Wheelers kWh",
+                    description: "Incentive amt paid 10000/- per kWh",
                     icon: Icons.electric_rickshaw,
                     color: const Color.fromARGB(255, 12, 229, 59),
                     gradientColors: [
@@ -194,92 +301,114 @@ class _EvdashboardState extends State<Evdashboard>
                     ),
                   ],
                 ),
-                SfRadialGauge(
-                  axes: [
-                    RadialAxis(
-                      radiusFactor: 0.65,
-                      axisLineStyle: AxisLineStyle(
-                          thickness: 25, color: Colors.grey.shade200),
-                      startAngle: 270,
-                      endAngle: 270,
-                      showLabels: false,
-                      showTicks: false,
-                      annotations: const [
-                        GaugeAnnotation(
-                          widget: Text(
-                            "73%",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 26,
-                                color: Colors.black),
+                //here
+                GestureDetector(
+                    onTapDown: (details) {
+                      //   final RenderBox renderBox =
+                      //       context.findRenderObject() as RenderBox;
+                      //   final Offset localPosition =
+                      //       renderBox.globalToLocal(details.globalPosition);
+
+                      //   // Detect the axis based on the tap position
+                      //   _detectAxisTap(localPosition, renderBox.size);
+                      final RenderBox box = _gaugeKey.currentContext
+                          ?.findRenderObject() as RenderBox;
+                      final Offset localPosition =
+                          box.globalToLocal(details.globalPosition);
+
+                      _getColorAtTap(localPosition);
+                    },
+                    child: RepaintBoundary(
+                      key: _gaugeKey,
+                      child: SfRadialGauge(
+                        axes: [
+                          RadialAxis(
+                            radiusFactor: 0.65,
+                            axisLineStyle: AxisLineStyle(
+                                thickness: 25, color: Colors.grey.shade200),
+                            startAngle: 270,
+                            endAngle: 270,
+                            showLabels: false,
+                            showTicks: false,
+                            annotations: [
+                              GaugeAnnotation(
+                                widget: Text(
+                                  // clickedAxis,
+                                  tappedColor,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 26,
+                                      color: Colors.black),
+                                ),
+                                angle: 270,
+                                positionFactor: 0.1,
+                              )
+                            ],
                           ),
-                          angle: 270,
-                          positionFactor: 0.1,
-                        )
-                      ],
-                    ),
-                    RadialAxis(
-                      radiusFactor: 0.8,
-                      pointers: const [
-                        RangePointer(
-                          value: 50,
-                          color: Colors.amber,
-                          width: 50,
-                        )
-                      ],
-                      startAngle: 270,
-                      endAngle: 270,
-                      showLabels: false,
-                      showTicks: false,
-                      showAxisLine: false,
-                    ),
-                    RadialAxis(
-                      radiusFactor: 0.68,
-                      pointers: const [
-                        RangePointer(
-                          value: 20,
-                          color: Color.fromARGB(255, 219, 19, 19),
-                          width: 50,
-                        )
-                      ],
-                      startAngle: 120,
-                      endAngle: 120,
-                      showLabels: false,
-                      showTicks: false,
-                      showAxisLine: false,
-                    ),
-                    RadialAxis(
-                      radiusFactor: 0.74,
-                      pointers: const [
-                        RangePointer(
-                          value: 15,
-                          color: Color.fromARGB(255, 32, 219, 19),
-                          width: 40,
-                        )
-                      ],
-                      startAngle: 90,
-                      endAngle: 90,
-                      showLabels: false,
-                      showTicks: false,
-                      showAxisLine: false,
-                    ),
-                    RadialAxis(
-                      radiusFactor: 0.65,
-                      pointers: const [
-                        RangePointer(
-                          value: 10,
-                          color: Color.fromARGB(255, 20, 211, 232),
-                          width: 35,
-                        )
-                      ],
-                      startAngle: 192,
-                      endAngle: 192,
-                      showLabels: false,
-                      showTicks: false,
-                      showAxisLine: false,
-                    )
-                  ],
-                )
+                          RadialAxis(
+                            radiusFactor: 0.8,
+                            pointers: const [
+                              RangePointer(
+                                value: 50,
+                                color: Colors.amber,
+                                width: 50,
+                              )
+                            ],
+                            startAngle: 270,
+                            endAngle: 270,
+                            showLabels: false,
+                            showTicks: false,
+                            showAxisLine: false,
+                          ),
+                          RadialAxis(
+                            radiusFactor: 0.8,
+                            pointers: const [
+                              RangePointer(
+                                value: 20,
+                                color: Color.fromARGB(255, 219, 19, 19),
+                                width: 50,
+                              )
+                            ],
+                            startAngle: 120,
+                            endAngle: 120,
+                            showLabels: false,
+                            showTicks: false,
+                            showAxisLine: false,
+                          ),
+                          RadialAxis(
+                            radiusFactor: 0.8,
+                            pointers: const [
+                              RangePointer(
+                                value: 15,
+                                color: Color.fromARGB(255, 32, 219, 19),
+                                width: 50,
+                              )
+                            ],
+                            startAngle: 90,
+                            endAngle: 90,
+                            showLabels: false,
+                            showTicks: false,
+                            showAxisLine: false,
+                          ),
+                          RadialAxis(
+                            radiusFactor: 0.8,
+                            pointers: const [
+                              RangePointer(
+                                value: 23,
+                                color: Colors.blue,
+                                width: 50,
+                              )
+                            ],
+                            startAngle: 192,
+                            endAngle: 192,
+                            showLabels: false,
+                            showTicks: false,
+                            showAxisLine: false,
+                          )
+                        ],
+                      ),
+                    ))
+                //here
               ])))
         ],
       ),
@@ -546,31 +675,36 @@ Widget _buildCard({
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                    onPressed: () {},
-                    child: ShaderMask(
-                      blendMode: BlendMode.srcATop,
-                      shaderCallback: (bounds) {
-                        return LinearGradient(
-                          colors: [
-                            Colors.white.withOpacity(0.2),
-                            Colors.white,
-                            Colors.white.withOpacity(0.2),
-                          ],
-                          stops: const [0.0, 0.5, 1.0],
-                          begin: Alignment.centerRight,
-                          end: Alignment.centerLeft,
-                          transform:
-                              GradientRotation(gradientPosition * 2 * 3.14),
-                        ).createShader(bounds);
-                      },
-                      child: const Text(
-                        'Apply',
-                        style: TextStyle(
-                          color: Colors.white, // Base text color
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ApplyScreen()));
+                    },
+                    // child: ShaderMask(
+                    //   blendMode: BlendMode.srcATop,
+                    //   shaderCallback: (bounds) {
+                    //     return LinearGradient(
+                    //       colors: [
+                    //         Colors.white.withOpacity(0.2),
+                    //         Colors.white,
+                    //         Colors.white.withOpacity(0.2),
+                    //       ],
+                    //       stops: const [0.0, 0.5, 1.0],
+                    //       begin: Alignment.centerRight,
+                    //       end: Alignment.centerLeft,
+                    //       transform:
+                    //           GradientRotation(gradientPosition * 2 * 3.14),
+                    //     ).createShader(bounds);
+                    //   },
+                    child: const Text(
+                      'Apply',
+                      style: TextStyle(
+                        color: Colors.white, // Base text color
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
+                      // ),
                     ),
                   );
                 },
