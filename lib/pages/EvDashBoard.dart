@@ -107,13 +107,13 @@ class _EvdashboardState extends State<Evdashboard>
         setState(() {
           // tappedColor = "R: $red, G: $green, B: $blue";
           if (red == 255 && blue == 7) {
-            tappedColor = "Amber";
+            tappedColor = "5.28";
           } else if (green == 219) {
-            tappedColor = "Green";
+            tappedColor = "52.41";
           } else if (red == 219) {
-            tappedColor = "Red";
+            tappedColor = "2.09";
           } else if (blue == 243) {
-            tappedColor = "blue";
+            tappedColor = "1.99";
           }
         });
       }
@@ -159,7 +159,7 @@ class _EvdashboardState extends State<Evdashboard>
                 ),
                 _buildCard(
                     title: "Two Wheelers 2kWh",
-                    description: "Incentive amt paid 15000/- per kWh",
+                    description: "Incentive amt paid \n15000/- per kWh",
                     icon: Icons.electric_bike,
                     color: Colors.amber,
                     gradientColors: [
@@ -171,7 +171,7 @@ class _EvdashboardState extends State<Evdashboard>
                 const SizedBox(height: 16),
                 _buildCard(
                     title: "Four Wheelers 15kWh",
-                    description: "Incentive amt paid 10000/- per kWh",
+                    description: "Incentive amt paid \n10000/- per kWh",
                     icon: Icons.electric_car_outlined,
                     color: const Color.fromARGB(255, 0, 174, 255),
                     gradientColors: [
@@ -183,7 +183,7 @@ class _EvdashboardState extends State<Evdashboard>
                 const SizedBox(height: 16),
                 _buildCard(
                     title: "EV - Buses 250kWh",
-                    description: "Incentive amt paid 20000/- per kWh",
+                    description: "Incentive amt paid \n20000/- per kWh",
                     icon: Icons.directions_bus_sharp,
                     color: const Color.fromARGB(255, 222, 31, 31),
                     gradientColors: [
@@ -194,7 +194,7 @@ class _EvdashboardState extends State<Evdashboard>
                     ),
                 _buildCard(
                     title: "3 Wheelers kWh",
-                    description: "Incentive amt paid 10000/- per kWh",
+                    description: "Incentive amt paid \n10000/- per kWh",
                     icon: Icons.electric_rickshaw,
                     color: const Color.fromARGB(255, 12, 229, 59),
                     gradientColors: [
@@ -207,7 +207,7 @@ class _EvdashboardState extends State<Evdashboard>
                   height: 20,
                 ),
                 const Text(
-                  'Most used Ev:',
+                  'Most Sold Ev:',
                   style: TextStyle(
                     color: Colors.black, // Base text color
                     fontSize: 18,
@@ -349,13 +349,13 @@ class _EvdashboardState extends State<Evdashboard>
                             radiusFactor: 0.8,
                             pointers: const [
                               RangePointer(
-                                value: 50,
+                                value: 5.28,
                                 color: Colors.amber,
                                 width: 50,
                               )
                             ],
-                            startAngle: 270,
-                            endAngle: 270,
+                            startAngle: 59,
+                            endAngle: 59,
                             showLabels: false,
                             showTicks: false,
                             showAxisLine: false,
@@ -364,13 +364,13 @@ class _EvdashboardState extends State<Evdashboard>
                             radiusFactor: 0.8,
                             pointers: const [
                               RangePointer(
-                                value: 20,
+                                value: 2.0,
                                 color: Color.fromARGB(255, 219, 19, 19),
                                 width: 50,
                               )
                             ],
-                            startAngle: 120,
-                            endAngle: 120,
+                            startAngle: 78,
+                            endAngle: 78,
                             showLabels: false,
                             showTicks: false,
                             showAxisLine: false,
@@ -379,7 +379,7 @@ class _EvdashboardState extends State<Evdashboard>
                             radiusFactor: 0.8,
                             pointers: const [
                               RangePointer(
-                                value: 15,
+                                value: 52,
                                 color: Color.fromARGB(255, 32, 219, 19),
                                 width: 50,
                               )
@@ -394,13 +394,13 @@ class _EvdashboardState extends State<Evdashboard>
                             radiusFactor: 0.8,
                             pointers: const [
                               RangePointer(
-                                value: 23,
+                                value: 1.99,
                                 color: Colors.blue,
                                 width: 50,
                               )
                             ],
-                            startAngle: 192,
-                            endAngle: 192,
+                            startAngle: 85,
+                            endAngle: 85,
                             showLabels: false,
                             showTicks: false,
                             showAxisLine: false,
@@ -460,32 +460,39 @@ class _EvdashboardState extends State<Evdashboard>
                 LineChartData(
                   gridData: FlGridData(show: false), // Show grid lines
                   titlesData: FlTitlesData(
-                    show: true,
-                    leftTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        getTitlesWidget: (value, meta) {
-                          return Text(
-                            value.toInt().toString(),
-                            style: TextStyle(color: Colors.black, fontSize: 10),
-                          );
-                        },
-                        interval: 5000, // Set interval for Y-axis
+                      show: true,
+                      leftTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: false,
+                          getTitlesWidget: (value, meta) {
+                            return Text(
+                              value.toInt().toString(),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 10),
+                            );
+                          },
+                          interval: 5000, // Set interval for Y-axis
+                        ),
                       ),
-                    ),
-                    bottomTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        getTitlesWidget: (value, meta) {
-                          return Text(
-                            '202${value.toInt()}',
-                            style: TextStyle(color: Colors.white, fontSize: 10),
-                          );
-                        },
-                        interval: 1, // Set interval for X-axis
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          getTitlesWidget: (value, meta) {
+                            return Text(
+                              '202${value.toInt()}',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 10),
+                            );
+                          },
+                          interval: 1, // Set interval for X-axis
+                        ),
                       ),
-                    ),
-                  ),
+                      rightTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                        showTitles: false,
+                      )),
+                      topTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false))),
                   borderData: FlBorderData(show: false),
                   minX: 0,
                   maxX: 6, // 12 months (0-11)
@@ -661,6 +668,7 @@ Widget _buildCard({
                   ],
                 ),
               ),
+              const SizedBox(height: 60),
               AnimatedBuilder(
                 animation: controller,
                 builder: (context, child) {
@@ -701,7 +709,7 @@ Widget _buildCard({
                       'Apply',
                       style: TextStyle(
                         color: Colors.white, // Base text color
-                        fontSize: 18,
+                        fontSize: 12,
                         fontWeight: FontWeight.bold,
                       ),
                       // ),

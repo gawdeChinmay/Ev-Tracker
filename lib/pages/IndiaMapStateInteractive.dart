@@ -89,7 +89,6 @@ class _IndiamapInteractiveState extends State<StateswiseEv> {
   }
 }
 
-
 // SvgPicture.asset(
 //           // 'assets/images/india.svg',
 //           svgData,

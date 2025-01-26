@@ -1,0 +1,72 @@
+{
+    "index_name": "6d7d3daa-bcac-4d52-9ce3-d97817d7d336",
+    "title": "Year-wise Details of Projected Energy Requirement Due to Electric Vehicles (EVs) from 2024-25 to 2029-30",
+    "desc": "Year-wise Details of Projected Energy Requirement Due to Electric Vehicles (EVs) from 2024-25 to 2029-30",
+    "org_type": "Central",
+    "org": [
+        "Rajya Sabha"
+    ],
+    "sector": [
+        "All"
+    ],
+    "source": "data.gov.in",
+    "catalog_uuid": "78889f83-0f96-484b-9fbc-5be92454446f",
+    "visualizable": "1",
+    "active": "1",
+    "created": 1735731400,
+    "updated": 1735731400,
+    "created_date": "2025-01-01T12:36:40Z",
+    "updated_date": "2025-01-01T12:36:40Z",
+    "external_ws": 0,
+    "external_ws_url": "",
+    "target_bucket": {
+        "index": "api",
+        "type": "78889f83-0f96-484b-9fbc-5be92454446f",
+        "field": "6d7d3daa-bcac-4d52-9ce3-d97817d7d336"
+    },
+    "field": [
+        {
+            "id": "years",
+            "name": "Years",
+            "type": "keyword"
+        },
+        {
+            "id": "energy_requirement",
+            "name": "Energy Requirement",
+            "type": "double"
+        }
+    ],
+    "message": "Resource lists",
+    "version": "2.2.0",
+    "status": "ok",
+    "total": 6,
+    "count": 6,
+    "limit": "10",
+    "offset": "0",
+    "records": [
+        {
+            "years": "2024-25",
+            "energy_requirement": 7170
+        },
+        {
+            "years": "2025-26",
+            "energy_requirement": 12160
+        },
+        {
+            "years": "2026-27",
+            "energy_requirement": 18910
+        },
+        {
+            "years": "2027-28",
+            "energy_requirement": 27688
+        },
+        {
+            "years": "2028-29",
+            "energy_requirement": 38788
+        },
+        {
+            "years": "2029-30",
+            "energy_requirement": 52604
+        }
+    ]
+}

@@ -91,7 +91,7 @@ class _StarterpageState extends State<Starterpage>
               padding: const EdgeInsets.all(15),
               child: Fadeanimation(
                 Text(
-                  'Get " EV " Insights',
+                  'Discover Electric Vehicle Insights',
                   style: GoogleFonts.roboto(
                     color: Colors.white,
                     fontSize: 36,
@@ -104,7 +104,7 @@ class _StarterpageState extends State<Starterpage>
             ),
             Fadeanimation(
               Text(
-                'All the information about ev \is from government data.gov.in website',
+                'Access authentic EV data, sourced directly from Indias government platform, data.gov.in.',
                 style: GoogleFonts.roboto(
                   color: Colors.white.withOpacity(0.5),
                   fontSize: 16,
@@ -123,20 +123,26 @@ class _StarterpageState extends State<Starterpage>
                   builder: (context, child) {
                     return Transform.scale(
                       scale: _buttonScale.value, // Apply scaling
-                      child: ElevatedButton(
-                        onPressed: _onTap,
-                        style: ElevatedButton.styleFrom(
-                          elevation: 50,
-                          shadowColor: Colors.black,
-                          backgroundColor:
-                              const Color.fromARGB(255, 204, 255, 0),
-                          minimumSize: const Size(double.infinity, 60),
-                        ),
-                        child: Text(
-                          "Start",
-                          style: GoogleFonts.roboto(
-                            color: const Color.fromARGB(255, 14, 67, 1),
-                            fontSize: 24,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0), // Add margin at start and end
+                        child: ElevatedButton(
+                          onPressed: _onTap,
+                          style: ElevatedButton.styleFrom(
+                            elevation:
+                                10, // Optional: Reduce elevation for a smaller appearance
+                            shadowColor: Colors.black,
+                            backgroundColor:
+                                const Color.fromARGB(255, 204, 255, 0),
+                            minimumSize: const Size(
+                                double.infinity, 40), // Adjusted size
+                          ),
+                          child: Text(
+                            "Start",
+                            style: GoogleFonts.roboto(
+                              color: const Color.fromARGB(255, 14, 67, 1),
+                              fontSize: 18, // Reduced font size
+                            ),
                           ),
                         ),
                       ),

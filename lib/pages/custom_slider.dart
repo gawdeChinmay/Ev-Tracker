@@ -1,4 +1,9 @@
+import 'dart:convert';
+
+import 'package:ev_tracker/model/EnergyRequiredGetResponse.dart';
+import 'package:ev_tracker/model/StatePcStationInIndiaGetResponse.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class CustomSlider extends StatefulWidget {
   const CustomSlider({
@@ -20,6 +25,62 @@ class _CustomSliderState extends State<CustomSlider> {
   bool _showPercentage = false;
   double _dragPosition = 0;
   double _dragPercentage = 0.5;
+  String lastEnergyRequirement = "";
+  int energyAsInt = 0;
+
+  void initState() {
+    fetchEnergyData();
+  }
+
+  Map<String, dynamic> energyDetails = {};
+
+  final String apiUrl =
+      "https://api.data.gov.in/resource/6d7d3daa-bcac-4d52-9ce3-d97817d7d336?api-key=579b464db66ec23bdd000001630807d7531740ae7e1e8bd31aea94cd&format=json";
+
+  Future<void> fetchEnergyData() async {
+    try {
+      final response = await http.get(Uri.parse('$apiUrl'));
+
+      if (response.statusCode == 200) {
+        final jsonString = response.body;
+        final parsedJson = jsonDecode(jsonString);
+        final evResponse = EnergyRequirementResponse.fromJson(parsedJson);
+        print("response = ${evResponse.records?.length}");
+        // Update the stateDetails map
+        setState(() {
+          energyDetails.clear(); // Clear previous data
+          if (evResponse.records != null) {
+            // Ensure records is not null
+            for (var record in evResponse.records!) {
+              energyDetails[record.years!] = {
+                "energy": record.energyRequirement,
+              };
+            }
+          }
+        });
+
+        if (energyDetails.isNotEmpty) {
+          // Get the last key in the map
+          final lastYear = energyDetails.keys.last;
+
+          // Access the energy requirement using the last key
+          energyAsInt = energyDetails[lastYear]?['energy'];
+
+          print(
+              'Last record - Year: $lastYear, Energy Requirement: $energyAsInt');
+        } else {
+          print('No energy details available.');
+        }
+
+        // Debugging
+        print('State details updated: $energyDetails');
+      } else {
+        print("Failed to load data: ${response.statusCode}");
+      }
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
 
   void _onDragStart(DragStartDetails details) {
     if (_key.currentContext == null) return;
@@ -75,7 +136,7 @@ class _CustomSliderState extends State<CustomSlider> {
           ),
           const SizedBox(height: 10),
           Text(
-            "${(100 + (_dragPercentage * (52604 - 100))).floor()} MU",
+            "${(100 + (_dragPercentage * (energyAsInt - 100))).floor()} MU",
             style: TextStyle(
               fontSize: 60, // Adjust the font size
               fontWeight: FontWeight.bold, // Make the text bold

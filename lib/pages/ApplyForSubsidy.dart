@@ -33,12 +33,12 @@ class ApplyScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             const Text(
-              '3. Vehicle number:',
+              '3. Vehicle number.',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 8),
             const Text(
-              '4. Chasis Number:',
+              '4. Chasis Number.',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 16),
