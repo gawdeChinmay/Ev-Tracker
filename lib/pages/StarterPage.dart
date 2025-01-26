@@ -103,17 +103,22 @@ class _StarterpageState extends State<Starterpage>
               ),
             ),
             Fadeanimation(
-              Text(
-                'Access authentic EV data, sourced directly from Indias government platform, data.gov.in.',
-                style: GoogleFonts.roboto(
-                  color: Colors.white.withOpacity(0.5),
-                  fontSize: 16,
-                  fontWeight: FontWeight.normal,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0), // Add start and end margins
+                child: Text(
+                  'Access authentic EV data, sourced directly from Indias government platform, data.gov.in.',
+                  style: GoogleFonts.roboto(
+                    color: Colors.white.withOpacity(0.5),
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
               ),
               0.5,
             ),
+
             const Spacer(),
             Padding(
               padding: const EdgeInsets.all(20),

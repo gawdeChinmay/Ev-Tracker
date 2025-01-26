@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ev_tracker/Config/api_config.dart';
 import 'package:ev_tracker/map/StateDecorator.dart';
 import 'package:ev_tracker/map/state-clippers/ap.dart';
 import 'package:ev_tracker/map/state-clippers/arp.dart';
@@ -60,7 +61,7 @@ class _StateswiseEvState extends State<StateswiseEv> {
   // Map<String, dynamic> stateDetails = {};
 
   final String apiUrl =
-      "https://api.data.gov.in/resource/203a82ce-9b00-4e3a-b18d-daf85e16684f?api-key=579b464db66ec23bdd000001630807d7531740ae7e1e8bd31aea94cd&format=json&limit=100";
+      "${ApiConfig.baseUrl}203a82ce-9b00-4e3a-b18d-daf85e16684f?api-key=${ApiConfig.apiKey}&format=json&limit=100";
 
   Map<String, dynamic> stateDetails =
       {}; // Declare stateDetails globally or in your widget's state

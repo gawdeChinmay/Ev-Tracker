@@ -107,13 +107,13 @@ class _EvdashboardState extends State<Evdashboard>
         setState(() {
           // tappedColor = "R: $red, G: $green, B: $blue";
           if (red == 255 && blue == 7) {
-            tappedColor = "5.28";
+            tappedColor = "5.28 %";
           } else if (green == 219) {
-            tappedColor = "52.41";
+            tappedColor = "52.41 %";
           } else if (red == 219) {
-            tappedColor = "2.09";
+            tappedColor = "2.09 %";
           } else if (blue == 243) {
-            tappedColor = "1.99";
+            tappedColor = "1.99 %";
           }
         });
       }

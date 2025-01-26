@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ev_tracker/Config/api_config.dart';
 import 'package:ev_tracker/model/EnergyRequiredGetResponse.dart';
 import 'package:ev_tracker/model/StatePcStationInIndiaGetResponse.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class _CustomSliderState extends State<CustomSlider> {
   Map<String, dynamic> energyDetails = {};
 
   final String apiUrl =
-      "https://api.data.gov.in/resource/6d7d3daa-bcac-4d52-9ce3-d97817d7d336?api-key=579b464db66ec23bdd000001630807d7531740ae7e1e8bd31aea94cd&format=json";
+      "${ApiConfig.baseUrl}6d7d3daa-bcac-4d52-9ce3-d97817d7d336?api-key=${ApiConfig.apiKey}&format=json";
 
   Future<void> fetchEnergyData() async {
     try {
