@@ -1,14 +1,28 @@
 import 'package:ev_tracker/pages/WebViewScreen.dart';
 import 'package:flutter/material.dart';
 
-class ApplyScreen extends StatelessWidget {
+class ApplyScreen extends StatefulWidget {
+  @override
+  _ApplyScreenState createState() => _ApplyScreenState();
+}
+
+class _ApplyScreenState extends State<ApplyScreen> {
+  String? selectedState;
+
+  final Map<String, String> stateLinks = {
+    'Odisha': 'https://odtransportmis.nic.in/EVCell/#/dashboard/register',
+    'Uttar Pradesh': 'https://upevsubsidy.in/register?disclaimer=true',
+    'Bihar': 'https://odtransportmis.nic.in/EVBihar/#/dashboard/register',
+    'Goa': 'https://goaev.in/form',
+    'Harayana': 'https://egrashry.nic.in/WebPages/SubsidyOnEVehicle',
+    'Gujarat': 'https://gogreenglwb.gujarat.gov.in/indexGLWB.aspx?ServiceID=9',
+  };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-      ),
+      appBar: AppBar(backgroundColor: Colors.white),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -16,10 +30,7 @@ class ApplyScreen extends StatelessWidget {
           children: [
             const Text(
               'Details required to apply for EV subsidy.',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             const Text(
@@ -41,14 +52,35 @@ class ApplyScreen extends StatelessWidget {
               '4. Chasis Number.',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
-            const SizedBox(height: 16),
-            const Spacer(),
-            Container(
-              margin: const EdgeInsets.only(
-                left: 16.0, // marginStart
-                right: 16.0, // marginEnd
-                bottom: 86.0, // marginBottom
+            const SizedBox(height: 24),
+
+            /// 🔽 Dropdown for selecting state
+            SizedBox(
+              height: 60, // Set desired height here
+              child: DropdownButton<String>(
+                hint: const Text('Select your state'),
+                value: selectedState,
+                isExpanded: true,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedState = newValue;
+                  });
+                },
+                items: stateLinks.keys.map((String state) {
+                  return DropdownMenuItem<String>(
+                    value: state,
+                    child: Text(state),
+                  );
+                }).toList(),
               ),
+            ),
+
+            const Spacer(),
+
+            /// 🔘 Apply button
+            Container(
+              margin:
+                  const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 86.0),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   elevation: 6.0,
@@ -59,14 +91,19 @@ class ApplyScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                 ),
                 onPressed: () {
-                  // Handle apply button action
-                  // ScaffoldMessenger.of(context).showSnackBar(
-                  //   const SnackBar(content: Text('Application Submitted')),
-                  // );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => WebViewScreen()),
-                  );
+                  if (selectedState != null) {
+                    String link = stateLinks[selectedState]!;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WebViewScreen(url: link),
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Please select a state')),
+                    );
+                  }
                 },
                 child: const Center(
                   child: Text(

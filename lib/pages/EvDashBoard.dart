@@ -158,7 +158,7 @@ class _EvdashboardState extends State<Evdashboard>
                   height: 20,
                 ),
                 _buildCard(
-                    title: "Two Wheelers 2kWh",
+                    title: "2 Wheelers 2kWh",
                     description: "Incentive amt paid \n15000/- per kWh",
                     icon: Icons.electric_bike,
                     color: Colors.amber,
@@ -170,7 +170,7 @@ class _EvdashboardState extends State<Evdashboard>
                     ),
                 const SizedBox(height: 16),
                 _buildCard(
-                    title: "Four Wheelers 15kWh",
+                    title: "4 Wheelers 15kWh",
                     description: "Incentive amt paid \n10000/- per kWh",
                     icon: Icons.electric_car_outlined,
                     color: const Color.fromARGB(255, 0, 174, 255),

@@ -74,7 +74,7 @@ class _StarterpageState extends State<Starterpage>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 190), // Space from the top
+            const SizedBox(height: 100), // Space from the top
             Container(
               width: 380, // Icon width
               height: 380, // Icon height
@@ -88,7 +88,7 @@ class _StarterpageState extends State<Starterpage>
             ),
             const SizedBox(height: 30), // Space below the icon
             Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(20),
               child: Fadeanimation(
                 Text(
                   'Discover Electric Vehicle Insights',

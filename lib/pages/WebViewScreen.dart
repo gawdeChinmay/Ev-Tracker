@@ -2,36 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
+  final String url; // Accept URL from outside
+
+  const WebViewScreen({Key? key, required this.url}) : super(key: key);
+
   @override
   _WebViewScreenState createState() => _WebViewScreenState();
 }
 
 class _WebViewScreenState extends State<WebViewScreen> {
   late WebViewController controller;
-  bool isLoading = true; // Flag to show loader
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    // Initialize WebViewController when the widget is created
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadRequest(Uri.parse(
-          'https://odtransportmis.nic.in/EVCell/#/dashboard/register'));
-
-    // Listen to the page load events to control the loader
-    controller.setNavigationDelegate(NavigationDelegate(
-      onPageStarted: (url) {
-        setState(() {
-          isLoading = true; // Show loader when page starts loading
-        });
-      },
-      onPageFinished: (url) {
-        setState(() {
-          isLoading = false; // Hide loader when page finishes loading
-        });
-      },
-    ));
+      ..setNavigationDelegate(NavigationDelegate(
+        onPageStarted: (_) {
+          setState(() => isLoading = true);
+        },
+        onPageFinished: (_) {
+          setState(() => isLoading = false);
+        },
+      ))
+      ..loadRequest(Uri.parse(widget.url)); // Load dynamic URL
   }
 
   @override
@@ -44,13 +40,8 @@ class _WebViewScreenState extends State<WebViewScreen> {
       ),
       body: Stack(
         children: [
-          WebViewWidget(
-            controller: controller, // Use the WebViewController here
-          ),
-          if (isLoading)
-            Center(
-              child: CircularProgressIndicator(), // Show loading indicator
-            ),
+          WebViewWidget(controller: controller),
+          if (isLoading) const Center(child: CircularProgressIndicator()),
         ],
       ),
     );
