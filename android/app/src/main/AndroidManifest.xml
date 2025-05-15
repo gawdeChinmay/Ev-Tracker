@@ -3,7 +3,7 @@
 
 
     <application
-        android:label="ev_tracker"
+        android:label="EV Tracker"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
